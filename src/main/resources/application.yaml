@@ -1,5 +1,17 @@
 spring:
-    datasource:
-        url: jdbc:postgresql://localhost:5432/employee_db_dev
-        username: dev
-        password: test
+  datasource:
+    username: ${POSTGREAPP_USERNAME:dev}
+    password: ${POSTGREAPP_PASSWORD:test}
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate.ddl-auto: update
+    properties.hibernate.format_sql: true
+  profiles.active: ${POSTGREAPP_ACTIVE_PROFILES:postgre}
+server.port: 8090
+
+---
+
+spring:
+  datasource.url: jdbc:postgresql://${POSTGREAPP_HOST:localhost}:${POSTGREAPP_PORT:5432}/${POSTGREAPP_DB:employee_db_dev}
+  config.activate.on-profile: ${POSTGREAPP_PROFILE:postgre}
